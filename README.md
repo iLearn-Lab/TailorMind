@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🧠 TailorMind ✨</h1>
+  <h1>TailorMind</h1>
   <p><strong>A behavior-to-creation framework for personalized multimodal AIGC.</strong></p>
 
   <p>
