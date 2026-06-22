@@ -45,32 +45,6 @@ TailorMind contains four major stages:
 3. Profiling: multimodal agents summarize items, build user profiles, and refine them with iterative feedback.
 4. Generation: profile-to-idea and product-generation agents create personalized text-image posts and video concepts.
 
-## 📁 Repository Layout
-
-```text
-.
-├── agents/                 # LLM/VLM agents for analysis, profiling, reflection, and generation
-├── assets/
-│   └── framework.png       # TailorMind framework figure used by this README
-├── tools/                  # Pipeline scripts for analysis, realtime data, generation, and evaluation
-├── main.py                 # Top-level orchestration entry
-├── bilibli_spider.py       # Bilibili crawler
-├── redbookSpider.py        # Xiaohongshu/RedBook crawler
-├── requirements.txt
-└── LICENSE
-```
-
-## 🛠️ Core Modules
-
-| Module | Main files | Purpose |
-| --- | --- | --- |
-| Candidate ranking | prepared dataset splits and ranking outputs | Produces candidate items for profiling and generation. |
-| Offline analysis | `tools/analyze.py` | Analyzes downloaded user/item media and builds initial item/user profiles. |
-| Enhanced analysis | `tools/enhanced_analyze.py` | Performs hit analysis, validation/test reflection, and profile refinement. |
-| Realtime analysis | `tools/realtime_analyze.py`, `tools/enhanced_realtime_analyze.py` | Processes newly collected platform data. |
-| Content generation | `tools/product.py`, `agents/profile2idea.py`, `agents/itproduct_generator.py`, `agents/vproduct_generator.py` | Generates ideas, image-text content, and video-oriented products. |
-| Evaluation | `tools/stat_ndcg_from_json.py`, `tools/evaluate_post_quality.py`, `tools/evaluate_html_post.py`, `tools/stat_post_evaluations.py` | Computes recommendation/profile/content quality statistics. |
-
 ## 🚀 Quick Start
 
 ### 1. Clone
@@ -80,30 +54,17 @@ git clone https://github.com/iLearn-Lab/TailorMind.git
 cd TailorMind
 ```
 
-### 2. Create Environment
+### 2. Create Conda Environment
 
 ```bash
-python -m venv .venv
-
-# Linux / macOS
-source .venv/bin/activate
-
-# Windows PowerShell
-.\.venv\Scripts\Activate.ps1
+conda create -n tailormind python=3.10 -y
+conda activate tailormind
 ```
 
 ### 3. Install Dependencies
 
-Install PyTorch according to your CUDA version first. For CUDA 12.1:
-
 ```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-```
-
-Then install the core runtime packages used by TailorMind:
-
-```bash
-pip install openai python-dotenv pandas numpy requests beautifulsoup4 selenium aiohttp pillow moviepy yt-dlp tenacity scipy pyyaml tqdm tensorboard
+pip install -r requirements.txt
 ```
 
 Some optional video and retrieval components may require system tools such as `ffmpeg` or browser drivers.
@@ -223,9 +184,3 @@ python tools/evaluate_html_post.py
 # Summarize post evaluation versions
 python tools/stat_post_evaluations.py
 ```
-
-## 📝 Notes
-
-- The top-level project is released under the MIT License.
-- Large datasets, downloaded media, model checkpoints, cookies, and generated artifacts should usually stay out of version control.
-- For reproducible experiments, record `DATASET`, `MODEL`, model API names, and reflection settings alongside generated results.
