@@ -5,8 +5,6 @@
   <p>
     <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+">
     <img src="https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch">
-    <img src="https://img.shields.io/badge/Multimodal-Agents-6C5CE7?style=for-the-badge" alt="Multimodal Agents">
-    <img src="https://img.shields.io/badge/Profile-Reflection-00B894?style=for-the-badge" alt="Profile Reflection">
     <img src="https://img.shields.io/badge/License-MIT-0984E3?style=for-the-badge" alt="MIT License">
   </p>
 
