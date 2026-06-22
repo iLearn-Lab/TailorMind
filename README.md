@@ -1,58 +1,58 @@
 <div align="center">
-  <h1>TailorMind</h1>
-  <p><strong>From user behavior to tailored multimodal content.</strong></p>
+  <h1>🧠 TailorMind ✨</h1>
+  <p><strong>A behavior-to-creation framework for personalized multimodal AIGC.</strong></p>
 
   <p>
     <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+">
     <img src="https://img.shields.io/badge/PyTorch-2.x-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch">
-    <img src="https://img.shields.io/badge/SSLRec-WSDM%202024-6C5CE7?style=for-the-badge" alt="SSLRec">
-    <img src="https://img.shields.io/badge/License-MIT-00B894?style=for-the-badge" alt="MIT License">
+    <img src="https://img.shields.io/badge/Multimodal-Agents-6C5CE7?style=for-the-badge" alt="Multimodal Agents">
+    <img src="https://img.shields.io/badge/Profile-Reflection-00B894?style=for-the-badge" alt="Profile Reflection">
+    <img src="https://img.shields.io/badge/License-MIT-0984E3?style=for-the-badge" alt="MIT License">
   </p>
 
   <img src="./assets/framework.png" alt="TailorMind framework" width="100%">
 </div>
 
-## Overview
+## 🌟 Overview
 
-TailorMind is a personalized AIGC framework that connects recommendation systems, multimodal understanding, iterative user profiling, and content generation. It learns from real user behavior on social/content platforms, builds preference-aware user profiles, and generates tailored outputs such as social posts, image-text notes, and video ideas.
+TailorMind is a personalized AIGC framework that connects behavior-aware candidate ranking, multimodal understanding, iterative user profiling, and content generation. It learns from real user behavior on social/content platforms, builds preference-aware user profiles, and generates tailored outputs such as social posts, image-text notes, and video ideas.
 
 The framework is designed around a simple loop:
 
 ```text
-User behavior -> SSL recommendation -> multimodal item understanding
+User behavior -> candidate ranking -> multimodal item understanding
               -> user profile refinement -> tailored content generation
               -> evaluation and reflection -> refined profile
 ```
 
-## Highlights
+## ✨ Highlights
 
 | Capability | What it does |
 | --- | --- |
 | Multimodal behavior modeling | Builds user-item interaction signals from text, images, and videos. |
-| SSL recommendation engine | Integrates the SSLRec framework for self-supervised recommendation across multiple model families. |
+| Behavior-aware candidate ranking | Selects candidate content from user interactions and platform data. |
 | Multimodal analysis agents | Uses text, image, and video analysts to convert raw content into structured item profiles. |
 | Iterative profile optimization | Refines user profiles through validation/test feedback, hit analysis, and reflection records. |
 | Personalized content generation | Converts refined user profiles into post ideas, image-text content, and video-oriented creative directions. |
 | Platform-aware data pipeline | Supports Bilibili, Xiaohongshu/RedBook, Hupu, and Douban-oriented data flows. |
 
-## Architecture
+## 🧩 Architecture
 
 TailorMind contains four major stages:
 
 1. Data collection: crawlers and realtime collectors gather platform interactions and media assets.
-2. Recommendation: SSLRec ranks candidate items and prepares recommended, historical, validation, and test sets.
+2. Candidate ranking: prepares recommended, historical, validation, and test sets for downstream profiling.
 3. Profiling: multimodal agents summarize items, build user profiles, and refine them with iterative feedback.
 4. Generation: profile-to-idea and product-generation agents create personalized text-image posts and video concepts.
 
-## Repository Layout
+## 📁 Repository Layout
 
 ```text
 .
 ├── agents/                 # LLM/VLM agents for analysis, profiling, reflection, and generation
 ├── assets/
 │   └── framework.png       # TailorMind framework figure used by this README
-├── SSLRec/                 # Integrated self-supervised recommendation framework
-├── tools/                  # Pipeline scripts for recommendation, analysis, realtime data, and evaluation
+├── tools/                  # Pipeline scripts for analysis, realtime data, generation, and evaluation
 ├── main.py                 # Top-level orchestration entry
 ├── bilibli_spider.py       # Bilibili crawler
 ├── redbookSpider.py        # Xiaohongshu/RedBook crawler
@@ -60,18 +60,18 @@ TailorMind contains four major stages:
 └── LICENSE
 ```
 
-## Core Modules
+## 🛠️ Core Modules
 
 | Module | Main files | Purpose |
 | --- | --- | --- |
-| Recommendation | `tools/sslrec.py`, `SSLRec/` | Trains/runs SSLRec models and prepares recommendation outputs. |
+| Candidate ranking | prepared dataset splits and ranking outputs | Produces candidate items for profiling and generation. |
 | Offline analysis | `tools/analyze.py` | Analyzes downloaded user/item media and builds initial item/user profiles. |
 | Enhanced analysis | `tools/enhanced_analyze.py` | Performs hit analysis, validation/test reflection, and profile refinement. |
 | Realtime analysis | `tools/realtime_analyze.py`, `tools/enhanced_realtime_analyze.py` | Processes newly collected platform data. |
 | Content generation | `tools/product.py`, `agents/profile2idea.py`, `agents/itproduct_generator.py`, `agents/vproduct_generator.py` | Generates ideas, image-text content, and video-oriented products. |
 | Evaluation | `tools/stat_ndcg_from_json.py`, `tools/evaluate_post_quality.py`, `tools/evaluate_html_post.py`, `tools/stat_post_evaluations.py` | Computes recommendation/profile/content quality statistics. |
 
-## Quick Start
+## 🚀 Quick Start
 
 ### 1. Clone
 
@@ -106,7 +106,7 @@ Then install the core runtime packages used by TailorMind:
 pip install openai python-dotenv pandas numpy requests beautifulsoup4 selenium aiohttp pillow moviepy yt-dlp tenacity scipy pyyaml tqdm tensorboard
 ```
 
-SSLRec models may require extra packages such as `dgl`, depending on the selected model.
+Some optional video and retrieval components may require system tools such as `ffmpeg` or browser drivers.
 
 ### 4. Configure Environment Variables
 
@@ -115,10 +115,6 @@ Create a `.env` file in the repository root:
 ```env
 # Dataset: bilibili, redbook, hupu, douban
 DATASET=bilibili
-
-# SSLRec
-MODEL=SGL
-SKIP_DOWNLOAD=false
 
 # Chat / multimodal model API
 CHAT_API_KEY=your_api_key
@@ -153,19 +149,11 @@ download/{DATASET}/{real_user_id}/
 └── test/{item_id}/
 ```
 
-SSLRec mappings and matrices are expected under:
-
-```text
-SSLRec/datasets/general_cf/{DATASET}/
-├── user_map.json
-├── item_map.json
-├── valid_matrix.pkl
-└── test_matrix.pkl
-```
+Candidate-ranking mappings and validation/test matrices should be prepared before running the reflection stage.
 
 Each item folder can contain `.txt`, `.jpg`/`.png`, and `.mp4` files. TailorMind will write outputs such as `analysis.json`, `item_profiles.txt`, `user_profile.txt`, `product_ideas.json`, `valid_reflection_results.json`, and `test_reflection_results.json`.
 
-## Running the Pipeline
+## ⚡ Running the Pipeline
 
 The current `main.py` is an orchestration script with several stages available as commented blocks. By default, it runs enhanced analysis:
 
@@ -176,9 +164,6 @@ python main.py
 For modular runs, call individual tools:
 
 ```bash
-# Run SSLRec recommendation
-python -c "from dotenv import load_dotenv; load_dotenv(); from tools.sslrec import run_sslrec; run_sslrec()"
-
 # Build multimodal item profiles and user profiles
 python -c "from dotenv import load_dotenv; load_dotenv(); from tools.analyze import analyze; analyze(max_workers=15)"
 
@@ -189,7 +174,7 @@ python -c "from dotenv import load_dotenv; load_dotenv(); from tools.enhanced_an
 python -c "from dotenv import load_dotenv; load_dotenv(); from tools.product import product; product()"
 ```
 
-## Realtime Collection
+## 🔄 Realtime Collection
 
 Realtime collectors can be used after historical data has been prepared:
 
@@ -210,7 +195,7 @@ hupu.process_all_users(save_data=True, download_media=True, max_users=200)
 
 Platform collectors may require cookies, browser drivers, and compliance with each platform's terms of service.
 
-## Outputs
+## 📦 Outputs
 
 | Output | Location | Description |
 | --- | --- | --- |
@@ -221,7 +206,7 @@ Platform collectors may require cookies, browser drivers, and compliance with ea
 | Reflection records | `valid_reflection_results.json`, `test_reflection_results.json` | Iterative validation/test feedback. |
 | Global stats | `download/{DATASET}/global_reflection_statistics.json` | Aggregated NDCG/Hit Rate statistics across users. |
 
-## Evaluation
+## 📊 Evaluation
 
 Useful evaluation scripts:
 
@@ -239,23 +224,8 @@ python tools/evaluate_html_post.py
 python tools/stat_post_evaluations.py
 ```
 
-## Notes
+## 📝 Notes
 
 - The top-level project is released under the MIT License.
-- The `SSLRec/` directory is an integrated recommendation component; see `SSLRec/README.md` and `SSLRec/LICENSE.txt` for its original documentation and license.
 - Large datasets, downloaded media, model checkpoints, cookies, and generated artifacts should usually stay out of version control.
 - For reproducible experiments, record `DATASET`, `MODEL`, model API names, and reflection settings alongside generated results.
-
-## Citation
-
-If you use the integrated SSLRec component, please also cite:
-
-```bibtex
-@inproceedings{ren2024sslrec,
-  title={SSLRec: A Self-Supervised Learning Framework for Recommendation},
-  author={Ren, Xubin and Xia, Lianghao and Yang, Yuhao and Wei, Wei and Wang, Tianle and Cai, Xuheng and Huang, Chao},
-  booktitle={Proceedings of the 17th ACM International Conference on Web Search and Data Mining},
-  pages={567--575},
-  year={2024}
-}
-```
